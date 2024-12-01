@@ -26,6 +26,10 @@ public class Party {
         return dislikes;
     }
 
+    public void setDislikes(String[] dislikes) {
+        this.dislikes = dislikes;
+    }
+
     @Override
     public String toString() {
         return "Party{" +

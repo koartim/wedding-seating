@@ -43,7 +43,6 @@ public class WeddingPlanner {
             int currentCapacity = table.getCapacity();
             int i = 0;
             while (i < parties.size() && currentCapacity > 0) {
-                System.out.println("parties " + parties);
                 // get the current party
                 Party party = parties.get(i);
                 // get the parties currently seated at the current table
@@ -53,7 +52,8 @@ public class WeddingPlanner {
                         && (party.getSize() <= currentCapacity)) {
                     // if the party is compatible and can fit at the table, seat them
                     seatedParties.add(party);
-                    currentCapacity -= party.getSize(); // decrease the currentCapacity by the party size
+                    // decrease the currentCapacity by the party size
+                    currentCapacity -= party.getSize();
                     // remove the current party now that we have seated them
                     parties.remove(i);
                 } else {
@@ -63,16 +63,19 @@ public class WeddingPlanner {
                 // if we still have room at the table, and our list is not empty yet, check for a complement party
                 boolean foundComplement = false; // tracks if a complement party is found
                 while (currentCapacity > 0 && !parties.isEmpty()) {
-                    // since we have sorted the list in descending order by size,
-                    // the largest parties will take up the most space, look to the end of the list for smaller party to fill the remaining seats
-                    Party lastParty = parties.get(parties.size() - 1);
-                    // check to see if the currently seated parties are compatible with this party, and if this party can fit at the remaining seats in the table
-                    if (checkForDislikes(seatedParties, lastParty, dislikeLookup)
-                            && (lastParty.getSize() <= currentCapacity)) {
-                        // add the party to the table, and update the current capacity again, then remove the newly added party
-                        seatedParties.add(lastParty);
-                        currentCapacity -= lastParty.getSize();
-                        parties.remove(parties.size() - 1);
+                    // the largest parties will take up the most space, since we have sorted the parties in descending order by size,
+                    // we can look to the end of the list for smaller party to fill the remaining seats
+                    Party complementParty = parties.get(parties.size() - 1);
+                    // check to see if the currently seated parties are compatible with this party, and if this party
+                    // can fit at the remaining seats in the table
+                    if (checkForDislikes(seatedParties, complementParty, dislikeLookup)
+                            && (complementParty.getSize() <= currentCapacity)) {
+                        // add the party to the table
+                        seatedParties.add(complementParty);
+                        // update the current capacity again
+                        currentCapacity -= complementParty.getSize();
+                        // remove the newly added party
+                        parties.remove(complementParty);
                         foundComplement = true;
                     } else {
                         break; // exit the inner loop if no suitable party is found

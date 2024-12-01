@@ -1,5 +1,5 @@
-## Problem 2: Wedding Seating
-You work for a wedding planner and are in charge of assigning seating for guests. You are given a list
+## Problem 2 Wedding Seating:
+ You work for a wedding planner and are in charge of assigning seating for guests. You are given a list
  of tables (defined by table name - max capacity). You are also given a list of guest parties, along with 
  a number in that party. Also noted is if a party dislikes one or more other parties. If possible, you should
  not seat parties at the same table with a party they dislike. If it is not possible to seat all parties at the same 
@@ -18,7 +18,8 @@ You work for a wedding planner and are in charge of assigning seating for guests
 ## Why I refactored my old solution:
     I refactored the old solution because The logic relied on iterators, which made it harder to manage and debug. Also I wanted to try a new approach to more closely resemble the expected output in the problem statement.
     I tried a new approach where I would find complementary parties to fill tables efficiently. I sorted the list from greatest to list, sitting the largest parties first, and then trying to extract smaller parties from the end
-    of the list to fill up the tables. It's still not perfect, but there is more even distribution of parties across the tables and I think the logic makes more sense and is more readable. 
+    of the list to fill up the tables. It's still not perfect, but there is more even distribution of parties across the tables and I think the logic makes more sense and is more readable.
+    I also added support for text files as input using a BufferedReader object. This satisifes the requirement which I excluded at first because I didn't think I would have enough time. (sorry about that)
 
 ### 1. seatGuests(parties, tables)
     This method contains the core logic for seating guests. I iterate over each table and assign parties to them by adding them to the seatingChart. To optimize for larger inputs, I remove a party from the list of parties once it has been seated.
@@ -29,7 +30,7 @@ You work for a wedding planner and are in charge of assigning seating for guests
     No parties are seated next to anyone they dislike. All parties are seated at a table.
 
 ### 3. checkForDislikes(seatedParties, party, dislikeLookup)
-    This helper method ensures that no party is seated next to parties they dislike. It checks the dislikeLookup map to verify that none of the already-seated parties are in the current party's dislike list. If a conflict is found, the party is not added to the table.
+    This helper method ensures that no party is seated next to parties they dislike. It checks the dislikeLookup map to verify that none of the already seated parties are in the current party's dislike list. If a conflict is found, the party is not added to the table.
 
 ### 4. dislikeLookup
     To make checking for dislikes efficient, I created a map called dislikeLookup. This map stores each party's dislikes and allows compatibility checks in constant time, avoiding repeated iterations through dislike lists.

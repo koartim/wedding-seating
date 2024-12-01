@@ -1,0 +1,13 @@
+tables:
+A 8
+B 8
+C 7
+D 7
+
+parties:
+Hoying 3
+Garcia 2
+Owens 6 Hoying Taylor
+Smith 1 Garcia
+Taylor 5
+Reese 7
